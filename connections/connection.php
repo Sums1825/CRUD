@@ -17,29 +17,9 @@ function connection()
     }
 }
 
-function userLogin()
-{
-    $con = connection();
-    if (isset($_POST['submit'])) {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-
-        $sql = "SELECT * FROM users WHERE username = '$username' and password = '$password'";
-
-        $user = $con->query($sql) or die($con->error);
-        $row = $user->fetch_assoc();
-        $total = $user->num_rows;
-
-        if ($total > 0) {
-            echo header("location: create.php");
-        } else {
-            echo " No user found.";
-        }
-    }
-}
-
 function insertdata()
 {
+
     if (isset($_POST['submit'])) {
         $con = connection();
         // $x = stripslashes($x);
@@ -54,11 +34,25 @@ function insertdata()
         $gender = $_POST['Gender'];
         $age = $_POST['age'];
         $status = $_POST['status'];
-        $active = $_POST['active'];
+        $active = $_POST['isactive'];
+
+
+
 
 
         $sql = "INSERT INTO `employeefile`( `recid`,`fullname`, `address`, `birthdate`, `age`, `gender`, `civilstat`, `contactnum`, `salary`, `isactive`) 
         VALUES ('$id','$fname','$address',' $birthday','$age ','$gender','$status','$contact','$salary','$active')";
         $con->query($sql) or die($con->error);
+    }
+}
+function deletedata()
+{
+    $con = connection();
+    if (isset($_POST['delete'])) {
+        $id = $_POST['ID'];
+        $sql = "DELETE FROM employeefile WHERE recid = '$id'";
+        $con->query($sql) or die($con->error);
+
+        echo header("location: view.php");
     }
 }
