@@ -114,6 +114,24 @@ insertdata();
     </header>
 
 
+    <p id="lowcase"></p>
+
+    <script>
+        let text = "HELLO WORLD!";
+        let result = text.toLowerCase();
+
+        document.getElementById("lowcase").innerHTML = result;
+    </script>
+    <p id="upcase"></p>
+
+    <script>
+        let text = "hello world!";
+        let result = text.toUpperCase();
+
+        document.getElementById("upcase").innerHTML = result;
+    </script>
+
+
 
 
 

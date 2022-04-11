@@ -79,9 +79,18 @@ deletedata();
 
                 </form>
             </div>
+
         </div>
     </header>
 
+    <p id="upcase"></p>
+
+    <script>
+        let text = "hello world!";
+        let result = text.toUpperCase();
+
+        document.getElementById("upcase").innerHTML = result;
+    </script>
 
 
 
