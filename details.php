@@ -20,6 +20,7 @@ insertdata();
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
+
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -107,11 +108,9 @@ insertdata();
 
                 </form>
             </div>
-            </form>
         </div>
         </div>
     </header>
-
 
 
 

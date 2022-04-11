@@ -1,5 +1,7 @@
 <?php
 include_once("connections/connection.php");
+loginuser();
+
 insertdata();
 
 ?>
@@ -103,8 +105,9 @@ insertdata();
                     <div class="col-12">
                         <button class="btn btn-primary" type="submit" name="submit">Submit form</button>
                     </div>
-                </form>
 
+                </form>
+                <?php echo "Welcome " . $_SESSION["User"]; ?>
 
             </div>
         </div>

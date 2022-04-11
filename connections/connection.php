@@ -56,3 +56,37 @@ function deletedata()
         echo header("location: view.php");
     }
 }
+
+
+$x = 200;
+$y = 100;
+function addGlobal()
+{
+
+    $GLOBALS['z'] = $GLOBALS['x'] + $GLOBALS['y'];
+}
+function loginuser()
+{
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    $con = connection();
+    if (isset($_POST['submit'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        $sql = "SELECT * FROM users WHERE username = '$username' and password = '$password'";
+
+        $user = $con->query($sql) or die($con->error);
+        $row = $user->fetch_assoc();
+        $total = $user->num_rows;
+
+        if ($total > 0) {
+            $_SESSION['User'] = $row['username'];
+
+            echo header("location: create.php");
+        } else {
+            echo " No user found.";
+        }
+    }
+}

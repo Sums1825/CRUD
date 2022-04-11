@@ -1,27 +1,7 @@
 <?php
-require_once("connections/connection.php");
-if (!isset($_SESSION)) {
-    session_start();
-}
-$con = connection();
-if (isset($_POST['submit'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+require("connections/connection.php");
+header("Expires: Tuesday, 12 April 2022 04:00:00 GMT");
 
-    $sql = "SELECT * FROM users WHERE username = '$username' and password = '$password'";
-
-    $user = $con->query($sql) or die($con->error);
-    $row = $user->fetch_assoc();
-    $total = $user->num_rows;
-
-    if ($total > 0) {
-        $_SESSION['User'] = $row['username'];
-
-        echo header("location: create.php");
-    } else {
-        echo " No user found.";
-    }
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -36,11 +16,37 @@ if (isset($_POST['submit'])) {
     <script src="js/app.js"></script>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/login.css" rel="stylesheet" />
+
     <link href="css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
 </head>
+<style>
+    #iframe {
+        width: 100%;
+        height: 180px;
+    }
 
+    .option1 {
+        font-size: 25px;
+        font-family: 'Times New Roman', Times, serif;
+        border-color: blue;
+        color: yellow;
+        background-color: gray;
+        padding: 20px;
+        text-transform: capitalize;
+        cursor: crosshair;
+    }
+
+    .overflow {
+        background-color: lightblue;
+        width: 110px;
+        height: 110px;
+        overflow: scroll;
+        margin-left: 80px;
+        text-decoration: underline;
+    }
+</style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
         <a class="navbar-brand" href="#!">Employees Record</a>
@@ -66,15 +72,153 @@ if (isset($_POST['submit'])) {
                         <label for="exampleInputPassword1" class="form-label">Password</label>
                         <input type="password" class="form-control" name="password" id="exampleInputPassword1 " required>
                     </div>
+
                     <br>
                     <div class="col-md-4">
                         <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                     </div>
-                </form>
 
+                </form>
+                <?php loginuser(); ?>
             </div>
+
         </div>
+
     </header>
+
+    <iframe src="iframe.html" id="iframe">
+    </iframe>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+
+    </ul>
+    <ol>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <p>Day <span style="color:blue">1</span> Sample Program.</p>
+
+    </ol>
+    <select name="cars" id="cars" class="option1">
+        <option value="BMW">BMW</option>
+        <option value="Honda">Honda</option>
+        <option value="Ferrari">Ferrari</option>
+        <option value="audi">Audi</option>
+    </select>
+    <p class="overflow">One Piece (stylized in all caps) is a Japanese manga series written and illustrated by Eiichiro Oda. It has been serialized in Shueisha's shōnen manga magazine Weekly Shōnen Jump since July 1997, with its individual chapters compiled into 102 tankōbon volumes as of April 2022. The story follows the adventures of Monkey D. Luffy, a boy whose body gained the properties of rubber after unintentionally eating a Devil Fruit. With his pirate crew, the Straw Hat Pirates, Luffy explores the Grand Line in search of the world's ultimate treasure known as the "One Piece" in order to become the next King of the Pirates</p>
+
+    <?php
+    $favdog = "loki";
+
+    switch ($favdog) {
+        case "loki":
+            echo "Your favorite dog is loki!";
+            break;
+        case "max":
+            echo "Your favorite dog is max!";
+            break;
+        case "summer":
+            echo "Your favorite dog is summer!";
+            break;
+
+        default:
+            echo "Your favorite dog is neither loki, max, nor summer!";
+    }
+    echo "<br>";
+    $sample = '2';
+    if ($sample == '2') {
+        echo "sample is " . $sample;
+    } elseif ($sample == '3') {
+        echo "sample is " . $sample;
+    } else {
+        echo sha1($sample);
+        echo "<br>";
+        echo md5($sample);
+    }
+    echo "<br>";
+    echo (round(0.20) . "<br>");
+    echo (round(0.50) . "<br>");
+
+    ob_start();
+    echo "Your favorite dog is " . $favdog;
+    ob_end_clean();
+    echo "Your favorite dog is " . $favdog;
+    echo "<br>";
+
+    ob_start();
+    echo "Your favorite dog is " . $favdog;
+    ob_end_flush();
+    echo "<br>";
+
+    $cars = array("Honda", "BMW", "Toyota");
+    echo "I like " . $cars[0] . ", " . $cars[1] . " and " . $cars[2] . ".";
+    echo "<br>";
+    echo count($cars);
+    echo "<br>";
+
+    $str = '<a href="https://www.youtube.com">Go to youtube.com</a>';
+    echo htmlentities($str);
+    echo "<br>";
+    $str1 = addslashes('Your "favorite" dog is ' . $favdog);
+    echo ($str1);
+    echo "<br>";
+    echo stripslashes($str1);
+    echo "<br>";
+    $gender = array("Loki" => "Male", "Max" => "Male", "Summer" => "Female");
+    echo "Summer is " . $gender['Summer'];
+    echo "<br>";
+
+    $dogs = array(
+        array("Loki", "Male", 3),
+        array("Max", "Male", 2),
+        array("Summer", "Female", 1)
+    );
+    echo $dogs[0][0] . ": is " . $dogs[0][1] . ", years: " . $dogs[0][2] . ".<br>";
+    echo $dogs[1][0] . ": is " . $dogs[1][1] . ", years: " . $dogs[1][2] . ".<br>";
+    echo $dogs[2][0] . ": is " . $dogs[2][1] . ", years: " . $dogs[2][2] . ".<br>";
+
+    print_r(explode(" ", $str1));
+    $str1 = array('Your', 'favorite', 'dog', 'is');
+    echo implode(" ", $str1);
+    echo "<br>";
+
+    echo str_replace("world", "Loki", "Hello world!");
+    $dogsnum = array(2, 4, 6, 8, 10);
+    $samplestr = "Hello World!";
+    echo "<br>";
+    echo strlen($str);
+    echo "<br>";
+    echo substr("youtube", 3);
+    echo "<br>";
+    echo trim($samplestr, "o World!");
+    echo "<br>";
+    echo strrev($samplestr);
+    echo "<br>";
+    echo strpos($samplestr, "World!");
+    echo "<br>";
+    echo (min($dogsnum));
+    echo "<br>";
+    echo (max($dogsnum));
+    echo "<br>";
+    echo (abs(6.7));
+    echo "<br>";
+    echo strtoupper($samplestr);
+    echo "<br>";
+    echo strtolower($samplestr);
+    echo "<br>";
+    addGlobal();
+    echo $z;
+    echo "<br>";
+    echo $_SERVER['SCRIPT_NAME'];
+
+
+
+
+
+    require_once("footer.php");
+    ?>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
