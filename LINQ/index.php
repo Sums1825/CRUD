@@ -16,9 +16,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<body style="padding: 100px;">
+<body style="padding:50px;">
     <form class="row g-3" style="background-color:aliceblue;" action="" method="POST">
-        <table class="table table-success table-striped" style="width: 200px;">
+        <table class="table table-success table-striped" style="width: 150px;">
             <thead>
                 <tr>
                     <th scope=" col">Lastname</th>
@@ -98,6 +98,8 @@
                         while ($row = $result->fetch_assoc()) {
                             $counter++;
 
+
+
                 ?>
                             <tr>
                                 <th scope="row"><?php echo  $row['Lname']; ?></th>
@@ -108,7 +110,9 @@
                             </tr>
                         <?php
                             $sum = array_sum(explode(',', $row['age']));
-                            $counTot = $sum + $counTot;
+
+                            $counTot = $counTot + $sum;
+
                             if ($row['age'] < 40) {
                                 $countAgeLess++;
                             } elseif ($row['age'] > 40) {
@@ -122,6 +126,7 @@
 
                         </tr>
                 <?php
+
                     }
                 }
 
@@ -129,33 +134,45 @@
             </tbody>
         </table>
 
-        <div class="col-md-8"><b>First Name</b>
+        <div class="col-8"><b>First Name</b>
             <input type="text" aria-describedby="basic-addon1" name="fname">
             <label for="validationDefault05" class="form-label"><b>Search Options</b></label>
               <input type="radio" name="Soption" value="left" required> Left Most
               <input type="radio" name="Soption" value="anywhere" required> Anywhere
             <button type="submit" class="btn btn-primary" name="refresh">Refresh</button>
+            <div>
+                <div class="row justify-content-start">
+                    <div class="col-7">
+                        <b>Sort By</b><br>
+                          <input type="radio" name="Sortby" value="Fname" required>First Name
+                          <input type="radio" name="Sortby" value="Mname" required> Middle Name
+                          <input type="radio" name="Sortby" value="Lname" required> Last Name
+                          <input type="radio" name="Sortby" value="Age" required> Age
+                    </div>
 
-            <div class="col-md-8"><b>Sort By</b>
-                  <input type="radio" name="Sortby" value="Fname" required>First Name
-                  <input type="radio" name="Sortby" value="Mname" required> Middle Name
-                  <input type="radio" name="Sortby" value="Lname" required> Last Name
-                  <input type="radio" name="Sortby" value="Age" required> Age
-                <div class="col-md-5">
-                      <input type="radio" name="orderby" value="ascen" required> Ascending<br>
-                      <input type="radio" name="orderby" value="descen" required> Descending
+                    <div class="col-4"> <br>
+                          <input type="radio" name="orderby" value="ascen" required> Ascending<br>
+                          <input type="radio" name="orderby" value="descen" required> Descending
+                    </div>
                 </div>
             </div>
-
-            Total of all Age:
-            <input type="number" readonly style="width: 40px;" value="<?php echo $counTot; ?>"><Br><Br>
-            Total of Ages Less than 40:
-            <input type="number" readonly style="width: 40px;" value="<?php echo $countAgeLess; ?>"><Br><Br>
-            Total Count of all persons:
-            <input type="number" readonly style="width: 40px;" value="<?php echo $counter; ?>"><Br><Br>
-            Total Count of persons age greater than 40;
-            <input type="number" readonly style="width: 40px;" value="<?php echo $countAgeGre; ?>">
-
+            <div>
+                <div class="row justify-content-start">
+                    <div class="col-5">
+                        Total of all Age:
+                        <input type="number" readonly style="width: 55px;" value="<?php echo $counTot; ?>">
+                    </div>
+                    <div class="col-6"> Total of Ages Less than 40:
+                        <input type="number" readonly style="width: 40px;" value="<?php echo $countAgeLess; ?>">
+                    </div>
+                    <div class="col-5"> Total Count of all persons:
+                        <input type="number" readonly style="width: 55px;" value="<?php echo $counter; ?>">
+                    </div>
+                    <div class="col-6"> Total Count of persons age greater than 40;
+                        <input type="number" readonly style="width: 40px;" value="<?php echo $countAgeGre; ?>">
+                    </div>
+                </div>
+            </div>
     </form>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
